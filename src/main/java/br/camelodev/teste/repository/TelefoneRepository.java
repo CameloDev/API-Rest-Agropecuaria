@@ -1,7 +1,7 @@
 package br.camelodev.teste.repository;
 
-import br.camelodev.teste.entity.telefone;
+import br.camelodev.teste.entity.Telefone;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface TelefoneRepository extends JpaRepository<telefone, Integer> {
+public interface TelefoneRepository extends JpaRepository<Telefone, Integer> {
 }

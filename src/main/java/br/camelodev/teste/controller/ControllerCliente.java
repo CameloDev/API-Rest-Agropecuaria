@@ -21,6 +21,7 @@ public class ControllerCliente {
 
     @Autowired
     private ClienteRepository Clienterepository;
+
     @PostMapping
     @Transactional
     public ResponseEntity<DadosDetalhamentoCliente> cadastrarCliente(@RequestBody @Valid ClienteCadastro dadosCliente, UriComponentsBuilder uriBuilder1) {
@@ -29,6 +30,7 @@ public class ControllerCliente {
         var uri = uriBuilder1.path("/cliente/{id}").buildAndExpand(cliente.getId()).toUri();
         return ResponseEntity.created(uri).body(new DadosDetalhamentoCliente(cliente));
     }
+
     @GetMapping
     public ResponseEntity<List<ClienteDados>> listarClientes() {
         var lista =  Clienterepository.findAllByStatusDevedorTrue().stream().map(ClienteDados::new).toList();
@@ -42,6 +44,7 @@ public class ControllerCliente {
         cliente.atualizarInformacoesCliente(dadosCliente);
         return ResponseEntity.ok(new DadosDetalhamentoCliente(cliente));
     }
+
     @DeleteMapping("/{id}")
     @Transactional
     public ResponseEntity<Void> excluirCliente(@PathVariable Long id) {
@@ -56,6 +59,7 @@ public class ControllerCliente {
         cliente.inativar();
         return ResponseEntity.noContent().build();
     }
+
     @PutMapping("reativar/{id}")
     @Transactional
     public ResponseEntity<Void> reativarCliente(@PathVariable Long id) {
@@ -63,8 +67,9 @@ public class ControllerCliente {
         cliente.setStatusDevedor();
         return ResponseEntity.noContent().build();
     }
+
     @GetMapping("/{id}")
-    public ResponseEntity<DadosDetalhamentoCliente> detalharCartao(@PathVariable Long id) {
+    public ResponseEntity<DadosDetalhamentoCliente> detalharCliente(@PathVariable Long id) {
         var cliente = Clienterepository.getReferenceById(id);
         return ResponseEntity.ok(new DadosDetalhamentoCliente(cliente));
     }

@@ -5,7 +5,6 @@ import br.camelodev.teste.getters.CartaoDados;
 import br.camelodev.teste.posts.CartaoCadastro;
 import br.camelodev.teste.puts.AtualizarDadosCartao;
 import br.camelodev.teste.puts.DadosDetalhamentoCartao;
-import br.camelodev.teste.puts.DadosDetalhamentoCliente;
 import br.camelodev.teste.repository.CartaoRepository;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
@@ -22,6 +21,7 @@ public class ControllerCartao {
 
     @Autowired
     private CartaoRepository Cartaorepository;
+
     @PostMapping
     @Transactional
     public ResponseEntity<DadosDetalhamentoCartao> cadastrarCartao(@RequestBody @Valid CartaoCadastro dadosCartao, UriComponentsBuilder uriBuilder ) {
@@ -30,11 +30,13 @@ public class ControllerCartao {
         var uri = uriBuilder.path("/cartao/{id}").buildAndExpand(cartao.getId()).toUri();
         return ResponseEntity.created(uri).body(new DadosDetalhamentoCartao(cartao));
     }
+
     @GetMapping()
     public ResponseEntity<List<CartaoDados>> listarCartao() {
         var lista =  Cartaorepository.findAllByStatuscartaoTrue().stream().map(CartaoDados::new).toList();
         return ResponseEntity.ok(lista);
     }
+
     @PutMapping
     @Transactional
     public ResponseEntity<DadosDetalhamentoCartao> atualizarCartao(@RequestBody @Valid AtualizarDadosCartao dadosCartao) {
@@ -42,6 +44,7 @@ public class ControllerCartao {
         cartao.atualizarInformacoesCartao(dadosCartao);
         return ResponseEntity.ok(new DadosDetalhamentoCartao(cartao));
     }
+
     @DeleteMapping("/{id}")
     @Transactional
     public ResponseEntity<Void> excluirCartao(@PathVariable Long id) {
@@ -56,6 +59,7 @@ public class ControllerCartao {
         cartao.inativar();
         return ResponseEntity.noContent().build();
     }
+
     @PutMapping("reativar/{id}")
     @Transactional
     public ResponseEntity<Void> reativarCartao(@PathVariable Long id) {
@@ -63,6 +67,7 @@ public class ControllerCartao {
         cartao.ativar();
         return ResponseEntity.noContent().build();
     }
+
     @GetMapping("/{id}")
     public ResponseEntity<DadosDetalhamentoCartao> detalharCartao(@PathVariable Long id) {
         var cartao = Cartaorepository.getReferenceById(id);

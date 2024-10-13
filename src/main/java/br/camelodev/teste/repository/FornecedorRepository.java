@@ -1,7 +1,11 @@
 package br.camelodev.teste.repository;
 
-import br.camelodev.teste.entity.fornecedor;
+import br.camelodev.teste.entity.Cliente;
+import br.camelodev.teste.entity.Fornecedor;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface FornecedorRepository extends JpaRepository<fornecedor, Integer> {
+import java.util.List;
+
+public interface FornecedorRepository extends JpaRepository<Fornecedor, Long> {
+    List<Fornecedor> findAllByStatusTrue();
 }

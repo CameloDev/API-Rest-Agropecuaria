@@ -1,7 +1,10 @@
 package br.camelodev.teste.repository;
 
-import br.camelodev.teste.entity.produto;
+import br.camelodev.teste.entity.Produto;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface ProdutoRepository extends JpaRepository<produto, Integer> {
+import java.util.List;
+
+public interface ProdutoRepository extends JpaRepository<Produto, Integer> {
+    List<Produto> findAllByStatusTrue();
 }

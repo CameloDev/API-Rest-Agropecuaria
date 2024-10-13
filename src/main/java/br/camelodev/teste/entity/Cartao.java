@@ -26,7 +26,7 @@ public class Cartao {
     private boolean statuscartao;
     @Enumerated(EnumType.STRING)
     private br.camelodev.teste.enums.tipo_cartao tipo_cartao;
-    private int id_cliente;
+    private Long id_cliente;
 
     public Cartao(CartaoCadastro dados) {
     this.numero = dados.numero();
@@ -36,7 +36,7 @@ public class Cartao {
     this.bandeira = dados.bandeira();
     this.statuscartao = dados.status_cartao();
     this.tipo_cartao = dados.tipo_cartao();
-    this.id_cliente = dados.id_cliente();
+    this.id_cliente = (long) dados.id_cliente();
     }
 
     public void atualizarInformacoesCartao(@Valid AtualizarDadosCartao dadosCartao) {
